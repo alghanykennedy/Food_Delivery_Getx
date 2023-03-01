@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
 
@@ -52,7 +53,7 @@ class SplashView extends GetView<SplashController> {
           Align(
             alignment: Alignment.centerLeft,
             child: SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: Get.size.width,
               child: Stack(children: [
                 Positioned(
                     bottom: 0,
@@ -69,7 +70,7 @@ class SplashView extends GetView<SplashController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () => Get.offAllNamed(Routes.HOME),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 100,
