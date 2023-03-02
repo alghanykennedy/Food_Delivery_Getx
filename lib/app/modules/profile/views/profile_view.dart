@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/app/modules/profile_change/views/profile_change_view.dart';
 import 'package:fooddelivery/app/routes/app_pages.dart';
 import 'package:fooddelivery/widgets/reusable/font_widget.dart';
 
@@ -60,7 +61,7 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                           TextButton(
                               onPressed: () =>
-                                  Get.offAllNamed(Routes.PROFILE_CHANGE),
+                                  Get.to(() => ProfileChangeView()),
                               child: const Text(
                                 "change",
                                 style: TextStyle(

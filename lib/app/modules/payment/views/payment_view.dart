@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/app/modules/checkout/views/checkout_view.dart';
 import 'package:fooddelivery/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/payment_controller.dart';
 
-enum paymentGroup { card, bankAccount }
-
-enum deliveryGroup { doorDelivery, pickUp }
-
 class PaymentView extends GetView<PaymentController> {
-  paymentGroup? _char = paymentGroup.card;
-  deliveryGroup? _group = deliveryGroup.doorDelivery;
+  PaymentController paymentController = Get.put(PaymentController());
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,7 +22,7 @@ class PaymentView extends GetView<PaymentController> {
               color: Colors.black,
             ),
             onPressed: () {
-              Get.offAllNamed(Routes.CHECKOUT);
+              Get.back();
             },
           ),
           title: Stack(children: [
@@ -80,72 +76,81 @@ class PaymentView extends GetView<PaymentController> {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      title: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xFFF47B0A)),
-                              // child: Image.asset('assets/card.png'),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              "Card",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w400),
-                            )
-                          ],
+                    Obx(
+                      () => ListTile(
+                        title: Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color(0xFFF47B0A)),
+                                // child: Image.asset('assets/card.png'),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                "Card",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      leading: Radio<paymentGroup>(
+                        leading: Radio<paymentGroup>(
                           value: paymentGroup.card,
-                          groupValue: _char,
+                          groupValue: paymentController.payment.value,
                           activeColor: Color(0xFFFA4A0C),
-                          onChanged: (paymentGroup? value) {
+                          onChanged: (value) {
+                            paymentController.onClickPayment(paymentGroup.card);
                             // setState(() {
                             //   _char = value;
                             // });
-                          }),
+                          },
+                        ),
+                      ),
                     ),
                     Divider(color: Colors.black26, indent: 80, endIndent: 30),
-                    ListTile(
-                      title: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xFFEB4796)),
-                              // child: Image.asset('assets/bank.png'),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              "Bank Account",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w400),
-                            )
-                          ],
+                    Obx(
+                      () => ListTile(
+                        title: Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color(0xFFEB4796)),
+                                // child: Image.asset('assets/bank.png'),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                "Bank Account",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      leading: Radio<paymentGroup>(
+                        leading: Radio<paymentGroup>(
                           value: paymentGroup.bankAccount,
-                          groupValue: _char,
+                          groupValue: paymentController.payment.value,
                           activeColor: Color(0xFFFA4A0C),
-                          onChanged: (paymentGroup? value) {
+                          onChanged: (value) {
+                            paymentController
+                                .onClickPayment(paymentGroup.bankAccount);
                             // setState(() {
                             //   _char = value;
                             // });
-                          }),
+                          },
+                        ),
+                      ),
                     ),
                     Divider(color: Colors.black26, indent: 80, endIndent: 30),
                   ],
@@ -172,68 +177,78 @@ class PaymentView extends GetView<PaymentController> {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      title: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                    Obx(
+                      () => ListTile(
+                        title: Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              "Door Delivery",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w400),
-                            )
-                          ],
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                "Door Delivery",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          ),
+                        ),
+                        leading: Radio<deliveryGroup>(
+                          value: deliveryGroup.doorDelivery,
+                          groupValue: paymentController.delivery.value,
+                          activeColor: Color(0xFFFA4A0C),
+                          onChanged: (value) {
+                            paymentController
+                                .onClickDelivery(deliveryGroup.doorDelivery);
+                            // setState(() {
+                            //   _char = value;
+                            // });
+                          },
                         ),
                       ),
-                      leading: Radio<deliveryGroup>(
-                          value: deliveryGroup.doorDelivery,
-                          groupValue: _group,
-                          activeColor: Color(0xFFFA4A0C),
-                          onChanged: (deliveryGroup? value) {
-                            // setState(() {
-                            //   _group = value;
-                            // });
-                          }),
                     ),
                     Divider(color: Colors.black26, indent: 80, endIndent: 30),
-                    ListTile(
-                      title: Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                    Obx(
+                      () => ListTile(
+                        title: Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              "Pick up",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w400),
-                            )
-                          ],
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                "Pick up",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          ),
+                        ),
+                        leading: Radio<deliveryGroup>(
+                          value: deliveryGroup.pickUp,
+                          groupValue: paymentController.delivery.value,
+                          activeColor: Color(0xFFFA4A0C),
+                          onChanged: (value) {
+                            paymentController
+                                .onClickDelivery(deliveryGroup.pickUp);
+                            // setState(() {
+                            //   _char = value;
+                            // });
+                          },
                         ),
                       ),
-                      leading: Radio<deliveryGroup>(
-                          value: deliveryGroup.pickUp,
-                          groupValue: _group,
-                          activeColor: Color(0xFFFA4A0C),
-                          onChanged: (deliveryGroup? value) {
-                            // setState(() {
-                            //   _group = value;
-                            // });
-                          }),
                     ),
                     Divider(color: Colors.black26, indent: 80, endIndent: 30),
                   ],

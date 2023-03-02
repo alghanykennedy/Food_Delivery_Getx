@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fooddelivery/app/modules/checkout/views/checkout_view.dart';
 import 'package:fooddelivery/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
@@ -33,7 +34,7 @@ class CartView extends GetView<CartController> {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Get.offAllNamed(Routes.HOME);
+            Get.back();
           },
           child: Icon(
             Icons.arrow_back_ios,
@@ -66,7 +67,7 @@ class CartView extends GetView<CartController> {
                                 onPressed: ((context) {}),
                                 child: CircleAvatar(
                                   radius: 26,
-                                  backgroundColor: Colors.orange,
+                                  backgroundColor: Colors.red,
                                   child: IconButton(
                                     onPressed: () {},
                                     icon: Icon(Icons.favorite),
@@ -78,7 +79,7 @@ class CartView extends GetView<CartController> {
                                 onPressed: ((context) {}),
                                 child: CircleAvatar(
                                   radius: 26,
-                                  backgroundColor: Colors.orange,
+                                  backgroundColor: Colors.red,
                                 )),
                           ],
                         ),
@@ -90,7 +91,7 @@ class CartView extends GetView<CartController> {
           ),
           InkWell(
             onTap: () {
-              Get.offAllNamed(Routes.CHECKOUT);
+              Get.to(() => CheckoutView());
             },
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -141,10 +142,43 @@ class CartView extends GetView<CartController> {
                 ),
               ],
             ),
+            Spacer(),
+            Container(
+              height: 35,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.orange),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: Icon(
+                      Icons.remove,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "0",
+                    style: TextStyle(fontSize: 18.0, color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
-        trailing: Icon(Icons.add),
-        onTap: () {},
       );
 }
 

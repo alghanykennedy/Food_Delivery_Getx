@@ -1,6 +1,15 @@
 import 'package:get/get.dart';
 
+enum RadioButtonCheckout { doorDelivery, pickUp }
+
 class CheckoutController extends GetxController {
+  final Rx<RadioButtonCheckout> character =
+      RadioButtonCheckout.doorDelivery.obs;
+
+  void onClickRadio(value) {
+    character.value = value;
+  }
+
   //TODO: Implement CheckoutController
 
   final count = 0.obs;

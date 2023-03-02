@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/app/modules/cart/views/cart_view.dart';
 import 'package:fooddelivery/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
@@ -7,15 +8,6 @@ import '../controllers/detail_product_controller.dart';
 
 class DetailProductView extends GetView<DetailProductController> {
   Color _iconColor = Colors.redAccent;
-  bool _selectedIndex = true;
-  int position = 1;
-  _onSelected(bool index) {
-    //https://inducesmile.com/google-flutter/how-to-change-the-background-color-of-selected-listview-in-flutter/
-    // setState(() {
-    //   _selectedIndex = index;
-    // });
-  }
-  void pressedFavorite() {}
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +26,7 @@ class DetailProductView extends GetView<DetailProductController> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          Get.offAllNamed(Routes.HOME);
+                          Get.back();
                         },
                         icon: Icon(
                           Icons.arrow_back_ios_new,
@@ -126,7 +118,7 @@ class DetailProductView extends GetView<DetailProductController> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.offAllNamed(Routes.CART);
+                          Get.to(() => CartView());
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(

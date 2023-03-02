@@ -14,6 +14,8 @@ import 'package:fooddelivery/app/modules/list_food/bindings/list_food_binding.da
 import 'package:fooddelivery/app/modules/list_food/views/list_food_view.dart';
 import 'package:fooddelivery/app/modules/login/bindings/login_binding.dart';
 import 'package:fooddelivery/app/modules/login/views/login_view.dart';
+import 'package:fooddelivery/app/modules/loginsignup/bindings/loginsignup_binding.dart';
+import 'package:fooddelivery/app/modules/loginsignup/views/loginsignup_view.dart';
 import 'package:fooddelivery/app/modules/offers/bindings/offers_binding.dart';
 import 'package:fooddelivery/app/modules/offers/views/offers_view.dart';
 import 'package:fooddelivery/app/modules/orders/bindings/orders_binding.dart';
@@ -99,6 +101,11 @@ class AppPages {
       name: _Paths.OFFERS,
       page: () => OffersView(),
       binding: OffersBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGINSIGNUP,
+      page: () => LoginsignupView(),
+      binding: LoginsignupBinding(),
     ),
   ];
 }

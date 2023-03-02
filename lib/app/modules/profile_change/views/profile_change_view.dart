@@ -7,10 +7,9 @@ import 'package:get/get.dart';
 
 import '../controllers/profile_change_controller.dart';
 
-enum RadioButtonProfile { cardProfile, bankAccountProfile, paypalProfile }
-
 class ProfileChangeView extends GetView<ProfileChangeController> {
-  RadioButtonProfile? _character = RadioButtonProfile.cardProfile;
+  ProfileChangeController profileChangeController =
+      Get.put(ProfileChangeController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,7 @@ class ProfileChangeView extends GetView<ProfileChangeController> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            Get.offAllNamed(Routes.PROFILE);
+                            Get.back();
                           },
                           icon: Icon(Icons.arrow_back_ios_new)),
                       const SizedBox(
@@ -143,123 +142,140 @@ class ProfileChangeView extends GetView<ProfileChangeController> {
                             borderRadius: BorderRadius.circular(20)),
                         child: Column(
                           children: [
-                            ListTile(
-                              title: Container(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Color(0xFFF47B0A)),
-                                      // child: SvgPicture.asset(
-                                      //     'assets/icon/icon_card.svg',
-                                      //     height: 12,
-                                      //     width: 16,
-                                      //     fit: BoxFit.scaleDown),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    const Text(
-                                      "Card",
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w400),
-                                    )
-                                  ],
+                            Obx(
+                              () => ListTile(
+                                title: Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Color(0xFFF47B0A)),
+                                        // child: SvgPicture.asset(
+                                        //     'assets/icon/icon_card.svg',
+                                        //     height: 12,
+                                        //     width: 16,
+                                        //     fit: BoxFit.scaleDown),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      const Text(
+                                        "Card",
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w400),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              leading: Radio<RadioButtonProfile>(
-                                value: RadioButtonProfile.cardProfile,
-                                groupValue: _character,
-                                activeColor: Color(0xFFFA4A0C),
-                                onChanged: (RadioButtonProfile? value) {},
-                              ),
-                              onTap: () {},
-                            ),
-                            Divider(
-                                color: Colors.black26,
-                                indent: 80,
-                                endIndent: 30),
-                            ListTile(
-                              onTap: () {},
-                              title: Container(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Color(0xFFEB4796)),
-                                      // child: SvgPicture.asset(
-                                      //     'assets/icon/icon_bank_account.svg',
-                                      //     height: 12,
-                                      //     width: 16,
-                                      //     fit: BoxFit.scaleDown),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    const Text(
-                                      "Bank Account",
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w400),
-                                    )
-                                  ],
+                                leading: Radio<RadioButtonProfile>(
+                                  value: RadioButtonProfile.cardProfile,
+                                  groupValue:
+                                      profileChangeController.profile.value,
+                                  activeColor: Color(0xFFFA4A0C),
+                                  onChanged: (value) {
+                                    profileChangeController.onClickProfile(
+                                        RadioButtonProfile.cardProfile);
+                                  },
                                 ),
-                              ),
-                              leading: Radio<RadioButtonProfile>(
-                                value: RadioButtonProfile.bankAccountProfile,
-                                groupValue: _character,
-                                activeColor: Color(0xFFFA4A0C),
-                                onChanged: (RadioButtonProfile? value) {},
                               ),
                             ),
                             Divider(
                                 color: Colors.black26,
                                 indent: 80,
                                 endIndent: 30),
-                            ListTile(
-                              onTap: () {},
-                              title: Container(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Color(0xFF0038FF)),
-                                      // child: SvgPicture.asset(
-                                      //     'assets/icon/icon_paypal.svg',
-                                      //     height: 12,
-                                      //     width: 16,
-                                      //     fit: BoxFit.scaleDown),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    const Text(
-                                      "Paypal",
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w400),
-                                    )
-                                  ],
+                            Obx(
+                              () => ListTile(
+                                onTap: () {},
+                                title: Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Color(0xFFEB4796)),
+                                        // child: SvgPicture.asset(
+                                        //     'assets/icon/icon_bank_account.svg',
+                                        //     height: 12,
+                                        //     width: 16,
+                                        //     fit: BoxFit.scaleDown),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      const Text(
+                                        "Bank Account",
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w400),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                leading: Radio<RadioButtonProfile>(
+                                  value: RadioButtonProfile.bankAccountProfile,
+                                  groupValue:
+                                      profileChangeController.profile.value,
+                                  activeColor: Color(0xFFFA4A0C),
+                                  onChanged: (value) {
+                                    profileChangeController.onClickProfile(
+                                        RadioButtonProfile.bankAccountProfile);
+                                  },
                                 ),
                               ),
-                              leading: Radio<RadioButtonProfile>(
-                                value: RadioButtonProfile.paypalProfile,
-                                groupValue: _character,
-                                activeColor: Color(0xFFFA4A0C),
-                                onChanged: (RadioButtonProfile? value) {},
+                            ),
+                            Divider(
+                                color: Colors.black26,
+                                indent: 80,
+                                endIndent: 30),
+                            Obx(
+                              () => ListTile(
+                                onTap: () {},
+                                title: Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Color(0xFF0038FF)),
+                                        // child: SvgPicture.asset(
+                                        //     'assets/icon/icon_paypal.svg',
+                                        //     height: 12,
+                                        //     width: 16,
+                                        //     fit: BoxFit.scaleDown),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      const Text(
+                                        "Paypal",
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w400),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                leading: Radio<RadioButtonProfile>(
+                                  value: RadioButtonProfile.paypalProfile,
+                                  groupValue:
+                                      profileChangeController.profile.value,
+                                  activeColor: Color(0xFFFA4A0C),
+                                  onChanged: (value) {
+                                    profileChangeController.onClickProfile(
+                                        RadioButtonProfile.paypalProfile);
+                                  },
+                                ),
                               ),
                             ),
                           ],

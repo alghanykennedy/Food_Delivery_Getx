@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/app/modules/payment/views/payment_view.dart';
 import 'package:fooddelivery/app/modules/profile_change/views/profile_change_view.dart';
 import 'package:fooddelivery/app/routes/app_pages.dart';
 
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 import '../controllers/checkout_controller.dart';
 
 class CheckoutView extends GetView<CheckoutController> {
-  RadioButtonProfile? _character = RadioButtonProfile.cardProfile;
+  CheckoutController checkoutController = Get.put(CheckoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class CheckoutView extends GetView<CheckoutController> {
           ),
           leading: GestureDetector(
             onTap: () {
-              Get.offAllNamed(Routes.CART);
+              Get.back();
             },
             child: Icon(
               Icons.arrow_back_ios,
@@ -183,52 +184,62 @@ class CheckoutView extends GetView<CheckoutController> {
                               borderRadius: BorderRadius.circular(20)),
                           child: Column(
                             children: [
-                              ListTile(
-                                title: Container(
-                                  child: Row(
-                                    children: [
-                                      const Text(
-                                        "Door delivery",
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w400),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                leading: Radio<RadioButtonProfile>(
-                                  value: RadioButtonProfile.cardProfile,
-                                  groupValue: _character,
-                                  activeColor: MaterialStateColor.resolveWith(
-                                      (states) => Colors.orange),
-                                  onChanged: (RadioButtonProfile? value) {},
-                                ),
-                              ),
+                              Obx(() => ListTile(
+                                    title: Container(
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            "Door delivery",
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w400),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    leading: Radio<RadioButtonCheckout>(
+                                      value: RadioButtonCheckout.doorDelivery,
+                                      groupValue:
+                                          checkoutController.character.value,
+                                      activeColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.orange),
+                                      onChanged: (value) {
+                                        checkoutController.onClickRadio(
+                                            RadioButtonCheckout.doorDelivery);
+                                      },
+                                    ),
+                                  )),
                               Divider(
                                   color: Colors.grey[500],
                                   indent: 80,
                                   endIndent: 30),
-                              ListTile(
-                                title: Container(
-                                  child: Row(
-                                    children: [
-                                      const Text(
-                                        "Pick up",
-                                        style: TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w400),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                leading: Radio<RadioButtonProfile>(
-                                  value: RadioButtonProfile.paypalProfile,
-                                  groupValue: _character,
-                                  activeColor: MaterialStateColor.resolveWith(
-                                      (states) => Colors.orange),
-                                  onChanged: (RadioButtonProfile? value) {},
-                                ),
-                              ),
+                              Obx(() => ListTile(
+                                    title: Container(
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            "Pick up",
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w400),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    leading: Radio<RadioButtonCheckout>(
+                                      value: RadioButtonCheckout.pickUp,
+                                      groupValue:
+                                          checkoutController.character.value,
+                                      activeColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) => Colors.orange),
+                                      onChanged: (value) {
+                                        checkoutController.onClickRadio(
+                                            RadioButtonCheckout.pickUp);
+                                      },
+                                    ),
+                                  )),
                             ],
                           ),
                         ),
@@ -262,7 +273,7 @@ class CheckoutView extends GetView<CheckoutController> {
                         padding: const EdgeInsets.symmetric(vertical: 40),
                         child: InkWell(
                           onTap: () {
-                            Get.offAllNamed(Routes.PAYMENT);
+                            Get.to(() => PaymentView());
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

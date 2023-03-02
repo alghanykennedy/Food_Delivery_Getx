@@ -19,7 +19,7 @@ class HistoryView extends GetView<HistoryController> {
         ),
         backgroundColor: Colors.white,
         leading: GestureDetector(
-            onTap: () => Get.offAllNamed(Routes.HOME),
+            onTap: () => Get.back(),
             child: Padding(
               padding: const EdgeInsets.only(left: 40),
               child: Icon(

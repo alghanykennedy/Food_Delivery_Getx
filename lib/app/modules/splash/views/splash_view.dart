@@ -70,7 +70,7 @@ class SplashView extends GetView<SplashController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                onTap: () => Get.offAllNamed(Routes.HOME),
+                onTap: () => Get.offAllNamed(Routes.LOGINSIGNUP),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 100,

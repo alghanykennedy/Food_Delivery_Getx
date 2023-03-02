@@ -23,7 +23,7 @@ class ListFoodView extends GetView<ListFoodController> {
         elevation: 0,
         leading: GestureDetector(
           onTap: () {
-            Get.offAllNamed(Routes.HOME);
+            Get.back();
           },
           child: Icon(
             Icons.arrow_back_ios,

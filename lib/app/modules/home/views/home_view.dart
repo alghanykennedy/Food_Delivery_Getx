@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/app/modules/cart/views/cart_view.dart';
+import 'package:fooddelivery/app/modules/history/views/history_view.dart';
+import 'package:fooddelivery/app/modules/list_food/views/list_food_view.dart';
+import 'package:fooddelivery/app/modules/offers/views/offers_view.dart';
+import 'package:fooddelivery/app/modules/profile/views/profile_view.dart';
 import 'package:fooddelivery/app/routes/app_pages.dart';
 import 'package:fooddelivery/widgets/reusable/food_card_widget.dart';
 
@@ -49,7 +54,7 @@ class HomeView extends GetView<HomeController> {
                   padding: const EdgeInsets.only(right: 16),
                   child: IconButton(
                       onPressed: () {
-                        Get.offAllNamed(Routes.CART);
+                        Get.to(() => CartView());
                       },
                       icon: Icon(
                         Icons.shopping_cart_outlined,
@@ -79,7 +84,7 @@ class HomeView extends GetView<HomeController> {
                   //To add some elevation & border radius to text field need to wrap in Material
                   InkWell(
                     onTap: () {
-                      Get.offAllNamed(Routes.LIST_FOOD);
+                      Get.to(() => ListFoodView());
                     },
                     child: Container(
                       padding: EdgeInsets.all(20),
@@ -284,14 +289,14 @@ class HomeView extends GetView<HomeController> {
                     label: "Profile",
                     icon: IconButton(
                         onPressed: () {
-                          Get.offAllNamed(Routes.PROFILE);
+                          Get.to(() => ProfileView());
                         },
                         icon: Icon(Icons.person_outline))),
                 BottomNavigationBarItem(
                     label: "History",
                     icon: IconButton(
                         onPressed: () {
-                          Get.offAllNamed(Routes.HISTORY);
+                          Get.to(() => HistoryView());
                         },
                         icon: Icon(Icons.history))),
               ],
@@ -333,7 +338,7 @@ class HomeView extends GetView<HomeController> {
                 dividerListTile(),
                 ListTile(
                   onTap: () {
-                    Get.offAllNamed(Routes.OFFERS);
+                    Get.to(() => OffersView());
                   },
                   leading: const Icon(Icons.local_offer_outlined,
                       size: 20.0, color: Colors.white),
@@ -371,7 +376,9 @@ class HomeView extends GetView<HomeController> {
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.offAllNamed(Routes.LOGINSIGNUP);
+                    },
                     child: Row(
                       children: [
                         const Text("Sign-out",

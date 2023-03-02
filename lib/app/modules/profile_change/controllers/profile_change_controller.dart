@@ -1,6 +1,13 @@
 import 'package:get/get.dart';
 
+enum RadioButtonProfile { cardProfile, bankAccountProfile, paypalProfile }
+
 class ProfileChangeController extends GetxController {
+  final Rx<RadioButtonProfile> profile = RadioButtonProfile.cardProfile.obs;
+
+  void onClickProfile(value) {
+    profile.value = value;
+  }
   //TODO: Implement ProfileChangeController
 
   final count = 0.obs;

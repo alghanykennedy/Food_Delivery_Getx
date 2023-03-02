@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/app/modules/detail_product/views/detail_product_view.dart';
 import 'package:fooddelivery/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,7 @@ class FoodCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.offAllNamed(Routes.DETAIL_PRODUCT);
+        Get.to(() => DetailProductView());
       },
       child: SizedBox(
         height: 300,
