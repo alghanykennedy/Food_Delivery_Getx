@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/app/modules/detail_product/views/detail_product_view.dart';
-import 'package:fooddelivery/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class FoodCard extends StatelessWidget {
   const FoodCard({
     Key? key,
-    required this.image,
+    this.image = '',
+    this.imageUrl = '',
     required this.text,
   }) : super(key: key);
-  final String image, text;
+  final String image, imageUrl, text;
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +62,9 @@ class FoodCard extends StatelessWidget {
                         blurRadius: 40)
                   ],
                 ),
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('${image}'),
-                ),
+                child: imageUrl == ''
+                    ? CircleAvatar(backgroundImage: AssetImage(image))
+                    : CircleAvatar(backgroundImage: NetworkImage(imageUrl)),
               ),
             ),
           ],

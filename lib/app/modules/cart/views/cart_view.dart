@@ -8,19 +8,7 @@ import 'package:get/get.dart';
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView<CartController> {
-  List<MyModel> models = [
-    MyModel(name: 'product1', image: 'assets/images/food1.png', price: 215.80),
-    MyModel(name: 'product2', image: 'assets/images/food1.png', price: 415.30),
-    MyModel(name: 'product3', image: 'assets/images/food1.png', price: 115.50),
-    MyModel(name: 'product3', image: 'assets/images/food1.png', price: 115.50),
-    MyModel(name: 'product3', image: 'assets/images/food1.png', price: 115.50),
-    MyModel(name: 'product3', image: 'assets/images/food1.png', price: 115.50),
-    MyModel(name: 'product3', image: 'assets/images/food1.png', price: 115.50),
-    MyModel(name: 'product3', image: 'assets/images/food1.png', price: 115.50),
-    MyModel(name: 'product3', image: 'assets/images/food1.png', price: 115.50),
-    MyModel(name: 'product3', image: 'assets/images/food1.png', price: 115.50),
-    MyModel(name: 'product3', image: 'assets/images/food1.png', price: 115.50),
-  ];
+  final CartController cart = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -49,45 +37,48 @@ class CartView extends GetView<CartController> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-                itemCount: models.length,
-                itemBuilder: ((context, index) {
-                  final model = models[index];
-                  return Column(
-                    children: [
-                      Slidable(
-                        // Specify a key if the Slidable is dismissible.
-                        key: ValueKey(0),
-                        // The end action pane is the one at the right or the bottom side.
-                        endActionPane: ActionPane(
-                          motion: ScrollMotion(),
-                          children: [
-                            CustomSlidableAction(
-                                padding: EdgeInsets.only(left: 15),
-                                onPressed: ((context) {}),
-                                child: CircleAvatar(
-                                  radius: 26,
-                                  backgroundColor: Colors.red,
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.favorite),
-                                    color: Colors.white,
-                                  ),
-                                )),
-                            CustomSlidableAction(
-                                padding: EdgeInsets.only(right: 30),
-                                onPressed: ((context) {}),
-                                child: CircleAvatar(
-                                  radius: 26,
-                                  backgroundColor: Colors.red,
-                                )),
-                          ],
+            child: Obx(
+              () => ListView.builder(
+                  itemCount: cart.models.length,
+                  itemBuilder: ((context, index) {
+                    final model = cart.models[index];
+                    print(model.quantity.toString());
+                    return Column(
+                      children: [
+                        Slidable(
+                          // Specify a key if the Slidable is dismissible.
+                          key: ValueKey(0),
+                          // The end action pane is the one at the right or the bottom side.
+                          endActionPane: ActionPane(
+                            motion: ScrollMotion(),
+                            children: [
+                              CustomSlidableAction(
+                                  padding: EdgeInsets.only(left: 15),
+                                  onPressed: ((context) {}),
+                                  child: CircleAvatar(
+                                    radius: 26,
+                                    backgroundColor: Colors.red,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.favorite),
+                                      color: Colors.white,
+                                    ),
+                                  )),
+                              CustomSlidableAction(
+                                  padding: EdgeInsets.only(right: 30),
+                                  onPressed: ((context) {}),
+                                  child: CircleAvatar(
+                                    radius: 26,
+                                    backgroundColor: Colors.red,
+                                  )),
+                            ],
+                          ),
+                          child: buildListTile(model),
                         ),
-                        child: buildListTile(model),
-                      ),
-                    ],
-                  );
-                })),
+                      ],
+                    );
+                  })),
+            ),
           ),
           InkWell(
             onTap: () {
@@ -152,16 +143,17 @@ class CartView extends GetView<CartController> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 4.0),
-                    child: Icon(
-                      Icons.remove,
+                    child: IconButton(
+                      icon: Icon(Icons.remove),
                       color: Colors.white,
+                      onPressed: () => cart.decrement(model),
                     ),
                   ),
                   SizedBox(
                     width: 8,
                   ),
                   Text(
-                    "0",
+                    model.quantity.toString(),
                     style: TextStyle(fontSize: 18.0, color: Colors.white),
                   ),
                   SizedBox(
@@ -169,9 +161,10 @@ class CartView extends GetView<CartController> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 4.0),
-                    child: Icon(
-                      Icons.add,
+                    child: IconButton(
+                      icon: Icon(Icons.add),
                       color: Colors.white,
+                      onPressed: () => cart.increment(model),
                     ),
                   )
                 ],
@@ -186,10 +179,12 @@ class MyModel {
   final String name;
   final String image;
   final double price;
+  int quantity;
 
   MyModel({
     required this.name,
     required this.image,
     required this.price,
+    required this.quantity,
   });
 }

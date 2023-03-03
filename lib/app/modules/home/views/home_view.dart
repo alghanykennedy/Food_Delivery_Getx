@@ -13,6 +13,8 @@ import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+  final HomeController homeController = Get.put(HomeController());
+
   final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
   toggleMenu([bool end = false]) {
     if (!end) {
@@ -158,32 +160,30 @@ class HomeView extends GetView<HomeController> {
                               child: TabBarView(
                                   clipBehavior: Clip.none,
                                   children: [
-                                Container(
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      FoodCard(
-                                          image: "assets/images/food1.png",
-                                          text: "Vegie tomato mix"),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      FoodCard(
-                                          image: "assets/images/food1.png",
-                                          text: "Vegie tomato mix"),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      FoodCard(
-                                          image: "assets/images/food1.png",
-                                          text: "Vegie tomato mix"),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      FoodCard(
-                                          image: "assets/images/food1.png",
-                                          text: "Vegie tomato mix"),
-                                    ],
+                                Obx(
+                                  () => Container(
+                                    child: homeController.isLoading.value ==
+                                            true
+                                        ? CircularProgressIndicator()
+                                        : homeController.listMeal.isEmpty
+                                            ? SizedBox()
+                                            : ListView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                children: [
+                                                  ...homeController.listMeal
+                                                      .map(
+                                                    (item) => Padding(
+                                                      padding: EdgeInsets.only(
+                                                          right: 20),
+                                                      child: FoodCard(
+                                                          imageUrl:
+                                                              item.strMealThumb,
+                                                          text: item.strMeal),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                   ),
                                 ),
                                 Container(

@@ -65,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           InkWell(
             onTap: () {
-              Get.offAllNamed(Routes.HOME);
+              // Get.offAllNamed(Routes.HOME);
+              Get.toNamed(Routes.HOME);
             },
             child: Container(
               padding: const EdgeInsets.symmetric(
