@@ -9,6 +9,7 @@ import 'package:fooddelivery/widgets/reusable/food_card_widget.dart';
 
 import 'package:get/get.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
+import 'package:skeletons/skeletons.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -164,7 +165,7 @@ class HomeView extends GetView<HomeController> {
                                   () => Container(
                                     child: homeController.isLoading.value ==
                                             true
-                                        ? CircularProgressIndicator()
+                                        ? SkeletonListView()
                                         : homeController.listMeal.isEmpty
                                             ? SizedBox()
                                             : ListView(

@@ -12,12 +12,16 @@ class OrdersView extends GetView<OrdersController> {
         title: Text('OrdersView'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'OrdersView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: controller.obx(
+          (state) => Center(
+                child: Text(
+                  'OrdersView is working',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+          onEmpty: Text('Data Kosong'),
+          onLoading: Text('Lagi Loading...'),
+          onError: (e) => Text(e!)),
     );
   }
 }
