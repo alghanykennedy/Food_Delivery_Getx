@@ -7,15 +7,17 @@ class FoodCard extends StatelessWidget {
     Key? key,
     this.image = '',
     this.imageUrl = '',
+    this.id = '',
     required this.text,
   }) : super(key: key);
-  final String image, imageUrl, text;
+  final String image, imageUrl, text, id;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => DetailProductView());
+        Get.to(() => DetailProductView(), arguments: {'id': id});
+        print(id);
       },
       child: SizedBox(
         height: 300,

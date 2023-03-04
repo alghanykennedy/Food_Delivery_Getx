@@ -134,40 +134,31 @@ class CartView extends GetView<CartController> {
               ],
             ),
             Spacer(),
-            Container(
-              height: 35,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.orange),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: IconButton(
+            Padding(
+              padding: const EdgeInsets.only(top: 50),
+              child: Container(
+                height: 35,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.orange),
+                child: Row(
+                  children: [
+                    IconButton(
                       icon: Icon(Icons.remove),
                       color: Colors.white,
                       onPressed: () => cart.decrement(model),
                     ),
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    model.quantity.toString(),
-                    style: TextStyle(fontSize: 18.0, color: Colors.white),
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4.0),
-                    child: IconButton(
+                    Text(
+                      model.quantity.toString(),
+                      style: TextStyle(fontSize: 18.0, color: Colors.white),
+                    ),
+                    IconButton(
                       icon: Icon(Icons.add),
                       color: Colors.white,
                       onPressed: () => cart.increment(model),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
             )
           ],
