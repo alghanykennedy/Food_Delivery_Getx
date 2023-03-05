@@ -15,6 +15,7 @@ class DetailProductController extends GetxController {
     super.onInit();
     final args = Get.arguments;
     id = args['id'];
+    print(args);
     getDetail();
   }
 

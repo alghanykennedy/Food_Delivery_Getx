@@ -6,16 +6,19 @@ import 'package:get/get.dart';
 class ListCardFood extends StatelessWidget {
   const ListCardFood({
     Key? key,
-    required this.image,
+    this.image = '',
+    this.imageUrl = '',
+    this.id = '',
     required this.text,
   }) : super(key: key);
-  final String image, text;
+  final String image, imageUrl, text, id;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => DetailProductView());
+        Get.to(() => DetailProductView(), arguments: {'id': id});
+        print(id);
       },
       child: Container(
         margin: EdgeInsets.only(top: 8.0),
@@ -72,15 +75,16 @@ class ListCardFood extends StatelessWidget {
                 ),
               ),
               Positioned(
-                  top: -45,
-                  left: 15,
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage('${image}'),
-                    ),
-                  ))
+                top: -45,
+                left: 15,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  child: imageUrl == ''
+                      ? CircleAvatar(backgroundImage: AssetImage(image))
+                      : CircleAvatar(backgroundImage: NetworkImage(imageUrl)),
+                ),
+              )
             ],
           ),
         ),
