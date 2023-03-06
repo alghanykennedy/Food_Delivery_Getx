@@ -72,6 +72,7 @@ class ListFoodView extends GetView<ListFoodController> {
                         return ListCardFood(
                           imageUrl: item.strMealThumb,
                           text: item.strMeal,
+                          id: item.idMeal,
                         );
                       },
                     ),

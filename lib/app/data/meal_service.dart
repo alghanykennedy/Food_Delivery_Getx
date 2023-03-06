@@ -27,8 +27,8 @@ class MealService {
     }
   }
 
-  Future<ListFoodModel> getListFood() async {
-    final respone = await _connect.get('1/filter.php?c=Seafood',
+  Future<ListFoodModel> getListFood(String value) async {
+    final respone = await _connect.get('1/search.php?s=$value',
         decoder: (data) =>
             ListFoodModel.fromJson(data as Map<String, dynamic>));
     if (!respone.hasError) {

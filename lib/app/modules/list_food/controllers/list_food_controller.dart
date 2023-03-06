@@ -18,6 +18,7 @@ class ListFoodController extends GetxController {
   RxList<Meal> listFood = <Meal>[].obs;
   final mealService = MealService();
   var searchList = <Meal>[].obs;
+  var text = ''.obs;
 
   @override
   void onInit() {
@@ -28,7 +29,7 @@ class ListFoodController extends GetxController {
   getListFood() async {
     isLoading(true);
     try {
-      var response = await mealService.getListFood();
+      var response = await mealService.getListFood(text.value);
       listFood.addAll(response.meals);
       isLoading(false);
     } catch (e) {
@@ -38,6 +39,7 @@ class ListFoodController extends GetxController {
   }
 
   void onTextChanged(String text) {
+    this.text(text);
     searchList.clear();
     if (text.isEmpty) {
       listFood.forEach((element) {
@@ -45,7 +47,7 @@ class ListFoodController extends GetxController {
       });
     } else {
       listFood.forEach((element) {
-        if (element.strMeal.toLowerCase().contains(text)) {
+        if (element.strMeal.toLowerCase().contains(text.toLowerCase())) {
           searchList.add(element);
         }
         searchList.refresh();

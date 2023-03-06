@@ -58,12 +58,14 @@ class DetailProductView extends GetView<DetailProductController> {
                         SizedBox(
                           height: 275,
                           width: 275,
-                          child: Image.network(
-                              controller.detailMeal.value?.strMealThumb ?? ''),
+                          child: Image.network(detailProductController
+                                  .detailMeal.value?.strMealThumb ??
+                              ''),
                         ),
                         Container(
                           child: Text(
-                            controller.detailMeal.value?.strMeal ?? '',
+                            detailProductController.detailMeal.value?.strMeal ??
+                                '',
                             style: TextStyle(
                                 fontSize: 28,
                                 fontFamily: 'SF Pro',
